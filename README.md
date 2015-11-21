@@ -1,6 +1,6 @@
 Advanced Stats Page
 =============
-This tool allows users to visualize Sitecore rendering stats data in an initutive and simplified way. Whichw will help you to identify slow renderings, fix them and have happy end users!
+This tool allows users to visualize Sitecore rendering stats data in an intuitive and simplified way. Which will help you to identify slow renderings, fix them and have happy end users!.
 
 ![Sitecore History Viewer](https://sitecorebasics.files.wordpress.com/2015/11/statsv2-firstcut.gif "Sitecore Advanced Stats Page")
 
