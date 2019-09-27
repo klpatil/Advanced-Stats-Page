@@ -28,3 +28,4 @@ This tool allows users to visualize Sitecore rendering stats data in an intuitiv
 3. That's it! Enjoy! :-)
 
 >Found any bug? Got suggestion/feedback/comment, Share it here!
+
