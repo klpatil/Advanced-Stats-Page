@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="stats.aspx.cs" Inherits="Sitecore.Hack.HI.Web.sitecore.admin.v2.stats"%>
+﻿<%@ page language="C#" autoeventwireup="true" codefile="stats.aspx.cs"
+    inherits="Sitecore.Hack.HI.Web.sitecore.admin.v2.stats" %>
 
 
 <!DOCTYPE html>
@@ -6,13 +7,13 @@
 
 <head>
 
-    <meta charset="utf-8">    
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Stats V2 Page</title>
+    <title>Stats V2.1 Page</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -68,12 +69,15 @@
                             </div>
                         </div>
                         <div class="col-lg-2" style="margin-top: 22px;">
-                            <asp:Button ID="btnReset" CssClass="btn btn-default" Text="Reset Stats" runat="server" OnClick="btnReset_Click" />
+                            <asp:Button ID="btnReset" CssClass="btn btn-primary" Text="Reset Stats" runat="server" OnClick="btnReset_Click" />
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
+                                <strong>Legend : </strong><span class="bg-success">A component rendered from HTML Cache.</span> &nbsp;
+                            <span class="bg-danger">A component has not been rendered from HTML Cache. Probable candidate to apply HTML caching.</span>
                                 <asp:Table ID="tblStats"
                                     CellPadding="0" CellSpacing="0" runat="server"
                                     CssClass="table table-bordered table-hover table-striped" Visible="false">
@@ -104,7 +108,7 @@
                                             <h3 class="panel-title">Top 10 slowest Renderings by Total Time</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <div id="morris-bar-chart"></div>                                           
+                                            <div id="morris-bar-chart"></div>
                                         </div>
                                     </div>
                                 </asp:PlaceHolder>
