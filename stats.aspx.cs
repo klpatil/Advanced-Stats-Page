@@ -12,27 +12,21 @@ using System.Data.Linq;
 
 namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
 {
-    
-    public partial class stats : Sitecore.sitecore.admin.AdminPage
+
+    public partial class stats : System.Web.UI.Page
     {
         #region Events
-        protected override void OnInit(EventArgs e)
-        {
-            base.CheckSecurity(true); //Required!
-            base.OnInit(e);
-        }
+        
         protected void Page_Load(object sender, EventArgs arguments)
         {
             try
             {
                 Assert.ArgumentNotNull(sender, "sender");
                 Assert.ArgumentNotNull(arguments, "arguments");
-                //base.CheckSecurity(true);
                 if (!IsPostBack)
                 {
                     this.ShowSiteSelector();
                 }
-                //this.ShowRenderingStats(base.Request.QueryString["site"]);
             }
             catch (Exception ex)
             {
@@ -156,7 +150,7 @@ namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
         }
 
         private void ShowRenderingStats(string siteName)
-        {           
+        {
             if (Statistics.RenderingStatistics != null && Statistics.RenderingStatistics.Any())
             {
                 SortedList<string, Statistics.RenderingData> list = new SortedList<string, Statistics.RenderingData>();
@@ -194,6 +188,8 @@ namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
                     tableRow.ID = "row" + counter++;
                     tableRow.TableSection = TableRowSection.TableBody;
 
+                    string className = string.Empty;
+
                     // Rendering
                     AddTableCell(tableRow, data2.TraceName, FieldTypes.Text);
 
@@ -203,8 +199,15 @@ namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
                     // Count
                     AddTableCell(tableRow, data2.RenderCount.ToString(), FieldTypes.Text);
 
+                    // https://getbootstrap.com/docs/3.3/css/#tables
+                    if (data2.UsedCache > 0)
+                        className = "success";
+                    else
+                        className = "danger";
+
                     // From cache
-                    AddTableCell(tableRow, data2.UsedCache.ToString(), FieldTypes.Text);
+                    AddTableCell(tableRow, data2.UsedCache.ToString(), FieldTypes.Text
+                        ,className);
 
                     // Avg. time (ms)
                     AddTableCell(tableRow, data2.AverageTime.TotalMilliseconds.ToString(), FieldTypes.Text);
@@ -238,7 +241,7 @@ namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
                 tblStats.Visible = true;
                 phChart.Visible = true;
 
-                renderingDataForChartList.Sort(delegate(RenderingDataForChart r1, RenderingDataForChart r2)
+                renderingDataForChartList.Sort(delegate (RenderingDataForChart r1, RenderingDataForChart r2)
                 {
                     return r2.RawTimeTaken.CompareTo(r1.RawTimeTaken);
                 }
@@ -303,7 +306,7 @@ namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
         /// <param name="fieldType">Type of field</param>
         /// <returns></returns>
         private static TableCell AddTableCell(TableRow tableRow,
-            string value, FieldTypes fieldType)
+            string value, FieldTypes fieldType, string className="")
         {
             TableCell tableCell1 = new TableCell();
 
@@ -332,6 +335,10 @@ namespace Sitecore.Hack.HI.Web.sitecore.admin.v2
             }
 
             tableCell1.Text = valueToPrint;
+
+            if (!string.IsNullOrWhiteSpace(className))
+                tableRow.CssClass = className;
+
             tableRow.Cells.Add(tableCell1);
             return tableCell1;
         }
